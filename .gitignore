@@ -31,6 +31,7 @@ Thumbs.db
 .idea/
 *.sw?
 
+*.zip
 # Dependency locks (optional, if using lockfile per team standards)
 # package-lock.json
 # yarn.lock

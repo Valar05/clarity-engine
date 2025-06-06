@@ -1,10 +1,11 @@
 <template>
-  <div class="dark bg-gray-900 min-h-screen text-white font-sans border-8">
+  <div class="dark bg-black min-h-screen text-white font-sans border-8">
     <HeaderSection />
-    <!-- <ChatDock /> -->
+    <Terminal />
   </div>
 </template>
 
 <script setup>
 import HeaderSection from './components/HeaderSection.vue'
+import Terminal from './components/Terminal.vue';
 </script>
