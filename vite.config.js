@@ -9,4 +9,9 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  server: {
+    allowedHosts: [
+      'clarity-engine-49779364447.us-central1.run.app'
+    ]
+  },
 });

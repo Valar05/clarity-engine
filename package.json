@@ -2,12 +2,14 @@
   "name": "clarity-engine",
   "version": "1.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "node server.js",
     "build": "vite build",
-    "serve": "vite preview",
+    "serve": "node server.js",
+    "preview": "vite preview",
     "deploy": "gcloud run deploy clarity-engine --source . --region us-central1 --platform managed --allow-unauthenticated --port 8080"
   },
   "dependencies": {
+    "express": "^5.1.0",
     "vue": "^3.4.0"
   },
   "devDependencies": {

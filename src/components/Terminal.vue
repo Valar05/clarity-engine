@@ -2,13 +2,16 @@
   <div class="w-full bg-black flex items-center justify-center">
     <!-- Terminal Shell -->
     <div id="terminal-image"
-      class="relative bg-no-repeat bg-contain bg-center w-[90vw] h-auto aspect-[1024/768] max-w-[1024px]"
-      :style="{ backgroundImage: `url(${terminalBg})` }"
+      class="relative bg-no-repeat bg-cover bg-center w-[90vw] h-auto max-w-[1024px] aspect-[960/1920] md:aspect-[1024/768]"
+      :style="{ backgroundImage: `url(${isTall ? terminalTallBg : terminalBg})` }"
     >
       <!-- Terminal Text Area -->
-      <div class="absolute inset-0 px-[12%] mb-2 pb-[10%] flex flex-col justify-end text-white font-mono">
+      <div id="terminal-text" class="absolute inset-0 px-[8%] mb-2 pb-[8%] flex flex-col justify-end text-white font-mono pt-0 md:pt-0"
+        :class="[isTall ? 'pb-[25%] pl-[12%]' : '']"
+      >
         <!-- History -->
-        <div id="terminal-history" class="overflow-y-auto max-h-[65%] mb-4 ml-6 break-words whitespace-pre-line relative pt-0 h-full flex flex-col" style="background: transparent; min-height: 0;">
+        <div id="terminal-history" class="overflow-y-auto mb-4 ml-6 break-words whitespace-pre-line relative pt-0 h-full flex flex-col"
+          :class="[isTall ? 'max-h-[80%] mr-[10%]' : 'max-h-[65%]']" style="background: transparent; min-height: 0;">
           <div class="history-lines mt-auto relative z-30">
             <div v-for="(line, i) in history" :key="i" :class="['mb-1', 'user']">
               {{ line }}
@@ -16,11 +19,7 @@
           </div>
         </div>
         <!-- Overlay gradient absolutely positioned at the top of the scrollable area, OUTSIDE the scrollable container -->
-        <div class="fade-text-top absolute left-0 top-0 w-full pointer-events-none" style="height:2.5rem;"></div>
-        <!-- Overlay image absolutely positioned above text -->
-        <div class="absolute inset-0 pointer-events-none select-none z-20">
-          <img :src="terminalBg" alt="Terminal Overlay" class="w-full h-full object-contain" draggable="false" />
-        </div>
+        <div class="fade-text-top absolute left-0 top-0 pointer-events-none" style="height:2.5rem;"></div>
 
         <!-- Input -->
         <div class="flex items-center">
@@ -61,6 +60,7 @@
 <script setup>
 import { ref, onMounted, watch, computed } from 'vue'
 import terminalBg from '@/assets/Terminal.png'
+import terminalTallBg from '@/assets/Terminal_tall.png';
 
 const input = ref('')
 const history = ref([])
@@ -69,30 +69,16 @@ const terminalInput = ref(null)
 const isFocused = ref(false)
 const cursorPos = ref(0)
 
-function submit() {
-  if (input.value.trim()) {
-    history.value.push(input.value.trim())
-    input.value = ''
-    cursorPos.value = 0 // Reset caret position on submit
-    // Scroll to bottom after user submits
-    setTimeout(() => {
-      const historyEl = document.getElementById('terminal-history');
-      if (historyEl) {
-        historyEl.scrollTop = historyEl.scrollHeight;
-      }
-    }, 0);
-  }
-}
-
-function updateSelection(e) {
-  // Get the caret position in the input
-  cursorPos.value = e.target.selectionStart
-}
-
+// Responsive isTall logic
+const isTall = ref(false)
 onMounted(() => {
+  const checkTall = () => {
+    isTall.value = window.innerWidth < 768;
+  };
+  checkTall();
+  window.addEventListener('resize', checkTall);
   setInterval(() => (showCursor.value = !showCursor.value), 500)
   terminalInput.value?.focus()
-  // Set initial cursor position
   cursorPos.value = input.value.length
 })
 
@@ -130,6 +116,26 @@ const cursorOverlayStyle = computed(() => {
     zIndex: 20,
   };
 })
+
+function submit() {
+  if (input.value.trim()) {
+    history.value.push(input.value.trim())
+    input.value = ''
+    cursorPos.value = 0 // Reset caret position on submit
+    // Scroll to bottom after user submits
+    setTimeout(() => {
+      const historyEl = document.getElementById('terminal-history');
+      if (historyEl) {
+        historyEl.scrollTop = historyEl.scrollHeight;
+      }
+    }, 0);
+  }
+}
+
+function updateSelection(e) {
+  // Get the caret position in the input
+  cursorPos.value = e.target.selectionStart
+}
 </script>
 
 <style scoped>
@@ -197,13 +203,20 @@ const cursorOverlayStyle = computed(() => {
 /* Gradient fade effect at the top of the history container */
 .fade-text-top {
   position: absolute;
-  top: 15%;
-  left: 0;
-  width: 100%;
+  top: 26%;
+  left: 10.5%;
+  width: 81%;
   height: 3.5rem;
   pointer-events: none;
   /* z-index must be lower than the overlay image */
   z-index: 10;
   background: linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
+}
+@media (max-width: 767px) {
+  .fade-text-top {
+    top: 11%;
+    left: 16.5%;
+    width: 69%;
+  }
 }
 </style>
