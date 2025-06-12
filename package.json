@@ -2,19 +2,23 @@
   "name": "clarity-engine",
   "version": "1.0.0",
   "scripts": {
-    "dev": "node server.js",
+    "dev": "dotenv -e .envrc -- nodemon server.js",
     "build": "vite build",
     "serve": "node server.js",
     "preview": "vite preview",
     "deploy": "gcloud run deploy clarity-engine --source . --region us-central1 --platform managed --allow-unauthenticated --port 8080"
   },
   "dependencies": {
+    "dotenv": "^16.5.0",
+    "dotenv-cli": "^8.0.0",
     "express": "^5.1.0",
+    "openai": "^5.3.0",
     "vue": "^3.4.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.0",
     "autoprefixer": "^10.4.21",
+    "nodemon": "^3.1.0",
     "postcss": "^8.5.4",
     "tailwindcss": "^3.4.4",
     "vite": "^5.0.0"

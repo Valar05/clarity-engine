@@ -1,0 +1,55 @@
+[
+  {
+    "question": "What are your strengths?",
+    "answer": "Adaptability is my default mode. I can walk into just about any codebase, pick up the language or framework, and get moving fast. With AI in the mix, I can hit the ground running on day one—not day five. Speed is my superpower. I don’t just work quickly—I move with purpose. I cut through complexity without cutting corners. Thoroughness rounds me out. I’ve got high standards. That last 2% most people miss? I don’t. Because a bad 2% can tank an otherwise great product—and I don’t ship regrets."
+  },
+  {
+    "question": "What is your greatest weakness?",
+    "answer": "My biggest weakness is overcommitment to excellence. When I’m in the zone, I go deep—sometimes too deep. I want to understand systems top to bottom, build things the *right* way, and polish every detail. That perfectionist streak? It can drag me into rabbit holes where “good enough” would’ve done the job. But I’ve learned to throttle it. I’ve started treating my perfectionism like a fire: useful when directed, dangerous when left unchecked. I’ve built habits to keep that fire focused—because I’d rather rein in intensity than have to manufacture it."
+  },
+  {
+    "question": "Tell me about a time you faced a challenge at work—and how you handled it.",
+    "answer": "I once had to build web service calls in mainframe COBOL—yes, COBOL. The structure was unforgiving, the tooling ancient, and testing every change felt like rolling a boulder uphill in molasses. Documentation was vague. Examples were rare. Even the veterans were guessing. So I went full problem-solver mode: I reverse-engineered every clue I could find, merged it with my knowledge of modern web APIs, and brute-forced my way forward with disciplined trial and error. It wasn’t elegant—but it worked. I got the job done, learned something wild, and left the codebase better than I found it."
+  },
+  {
+    "question": "What’s your dream job?",
+    "answer": "My dream job is one where I can move fast, make smart decisions, and *own* the work—without waiting on a committee to greenlight every step. I thrive in semi-autonomous roles where trust is the baseline and execution speaks for itself. I want to help small businesses level up—especially the ones stuck with outdated or nonexistent web systems. I get real satisfaction from transforming clunky workflows into elegant experiences, the kind that make both customers *and* system admins smile. I’m not chasing hype. I’m here to build tools that actually help people work better."
+  },
+  {
+    "question": "How do you handle tight deadlines or high-pressure situations?",
+    "answer": "When the pressure’s on, I don’t panic—I prioritize. I strip problems down to their core, cut anything that doesn’t serve the goal, and move with focus. One recent example: I rolled out Pendo analytics across most of our company’s products under a tight deadline. Rather than brute-force it into each app, I built a custom React hook that abstracted the complexity and made integration clean, fast, and repeatable. That move saved us hours per team and made long-term maintenance a breeze. Deadlines don’t scare me. They sharpen me."
+  },
+  {
+    "question": "Where do you see yourself in five years?",
+    "answer": "In five years, I see myself helping redefine how people build and interact with technology. Not chasing trends—setting them. I want to be designing systems that amplify human potential, not replace it. Whether it’s through AI tooling, developer experience, or customer workflows, I want to be on the edge where innovation meets impact. I’m not trying to climb a corporate ladder. I’m here to build the ladder, hand it to someone who needs it, and then invent a better way up."
+  },
+  {
+    "question": "Why should we hire you?",
+    "answer": "You should hire me if you want someone who delivers results and makes it look good. I bring velocity without the mess, polish without the ego, and just enough rebellion to challenge bad habits. I don’t wait to be told how to solve a problem—I *hunt* it down, crack it open, and leave it better than I found it. I’m not here to blend in. I’m here to build, to push, and to make the work so clean and powerful it speaks for itself."
+  },
+  {
+    "question": "Tell me about a time you disagreed with your team or manager. What did you do?",
+    "answer": "Leadership pushed for trunk-based deployment—move fast, break things. But we weren’t building ad tech. We were working in healthcare. Insurance. The kind of systems you *don’t* break. I raised concerns with senior developers and management. Most of them agreed: we needed guardrails. A way to stage, validate, and protect critical workflows. But the direction held firm. So I adapted. I strengthened local testing, built internal safeguards, and quietly hardened the pipeline where I could. I couldn’t change the policy—but I could still protect the product. I still believe the risks were underestimated. But I didn’t disengage. I delivered, stood by my standards, and left the system stronger than I found it."
+  },
+  {
+    "question": "Have you ever failed at something important? What did you learn from it?",
+    "answer": "I led the Pendo rollout across dozens of legacy and in-progress apps as our old analytics platform neared retirement. The deadline was tight—three months—and the team was mostly me. I handled onboarding, built internal tools, trained other teams, and owned integration strategy. I pushed hard. Too hard, honestly. I didn’t hit the deadline—and at the time, that felt like failure. But when Gainsight expired, nothing broke. Pendo went live. The work landed. That moment taught me something deeper than process. Now I bring the same intensity—but with foresight. I plan for scale. I prioritize sustainably. Because real impact doesn’t come from burnout—it comes from momentum you can *keep*."
+  },
+  {
+    "question": "What’s a skill or trait you’re still working on—and how are you improving it?",
+    "answer": "The skill I’m focused on mastering right now is AI prompting. Not just using AI—but directing it like a tool of precision. Because soon, AI will write our code, organize our builds, schedule our sprints—maybe even run our calendars. I already use AI everywhere I can. It lets me move faster, build smarter, and go deeper across disciplines. I can handle design, development, and debugging fluidly—because AI helps me focus less on busywork and more on making good decisions. I’m not trying to replace the craft—I’m just removing the bottlenecks. The future belongs to the builders who learn how to wield AI, not fear it. That’s where I’m headed."
+  },
+  {
+    "question": "What kind of work environment brings out your best?",
+    "answer": "I thrive in environments where the goal is clear, the success criteria are defined—and I’m trusted to get there in the way that works best. I’m flexible with tech stacks and can adapt quickly, but like most developers, I have tools I work fastest and smartest with. When those preferences are respected—when I’m not slowed down by artificial constraints—I move with momentum and deliver stronger outcomes. That said, I’m not talking about cutting corners. Security comes first. Collaboration matters. But if you give me a target and the space to build toward it, I’ll bring back something fast, clean, and probably better than expected."
+  },
+  {
+    "question": "Tell me about a time you had to learn something completely new, fast. How did you approach it?",
+    "answer": "I did a JavaScript bootcamp while working at Dillard’s. It moved fast—brutal pace. I started out barely understanding document selectors, and two weeks later we were building full single-page AngularJS apps. It felt like drinking from a firehose—but I adapted. Once I found my footing, I started mentoring other participants. That experience gave me confidence, and more than that, it changed my path. I used what I learned to transition from being a COBOL and Struts programmer to a full-on frontend developer at Blue Cross of Arkansas. I built responsive Vue-based pages for their AHIN portal, including tables that handled millions of rows with server-side fetching—on top of a custom Java stack with no framework support. It wasn’t plug-and-play—but I built the pieces anyway. That bootcamp didn’t just teach me JavaScript—it taught me how to pivot, level up fast, and deliver."
+  },
+  {
+    "question": "Tell me about a difficult coworker and how you handled it.",
+    "answer": "Early in my career, I worked with a colleague who was… a lot. Unfiltered to a fault, a temper that came with sound effects, and an uncanny ability to trauma-dump over lunch like it was a TED Talk. He meant well, but subtlety and social calibration were not in his toolkit.\n\nHe was assigned as my onboarding partner, which—plot twist—somehow turned into us commuting together. My wife jokingly called him my boyfriend. Eventually, I had to \"break up\" with him. Over the phone. About the commute. I told him I needed the alone time, and to his credit, he took it surprisingly well.\n\nWithin the team, we slowly adjusted—respectful distance, quiet structure shifts. We didn’t ice him out, but we stopped letting chaos drive the schedule. To his credit, he started to stabilize. Found a partner. Got better meds. When our company transitioned, he came along—and we kept things professional. I still wouldn’t get back in his truck, but we’re cordial to this day.\n\nWhat I learned? People are complicated. You can care about someone, set boundaries, and still protect your time, energy, and focus. Sometimes leadership means managing the team *and* the emotional blast radius."
+  }
+]
+

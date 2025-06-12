@@ -6,15 +6,15 @@
       :style="{ backgroundImage: `url(${isTall ? terminalTallBg : terminalBg})` }"
     >
       <!-- Terminal Text Area -->
-      <div id="terminal-text" class="absolute inset-0 px-[8%] mb-2 pb-[8%] flex flex-col justify-end text-white font-mono pt-0 md:pt-0"
-        :class="[isTall ? 'pb-[25%] pl-[12%]' : '']"
+      <div id="terminal-text" class="absolute inset-0 px-[8%] mb-2  flex flex-col justify-end text-white font-mono pt-0 md:pt-0"
+        :class="[isTall ? 'pb-[25%] pl-[12%]' : 'pb-[8%]']"
       >
         <!-- History -->
         <div id="terminal-history" class="overflow-y-auto mb-4 ml-6 break-words whitespace-pre-line relative pt-0 h-full flex flex-col"
           :class="[isTall ? 'max-h-[80%] mr-[10%]' : 'max-h-[65%]']" style="background: transparent; min-height: 0;">
           <div class="history-lines mt-auto relative z-30">
-            <div v-for="(line, i) in history" :key="i" :class="['mb-1', 'user']">
-              {{ line }}
+            <div v-for="(line, i) in history" :key="i" :class="['mb-1', line.role]">
+              {{ line.text }}
             </div>
           </div>
         </div>
@@ -61,6 +61,7 @@
 import { ref, onMounted, watch, computed } from 'vue'
 import terminalBg from '@/assets/Terminal.png'
 import terminalTallBg from '@/assets/Terminal_tall.png';
+import recruiterQuestions from '@/../RecruiterQuestions.json';
 
 const input = ref('')
 const history = ref([])
@@ -68,6 +69,7 @@ const showCursor = ref(true)
 const terminalInput = ref(null)
 const isFocused = ref(false)
 const cursorPos = ref(0)
+const recruiterContext = ref([])
 
 // Responsive isTall logic
 const isTall = ref(false)
@@ -80,6 +82,11 @@ onMounted(() => {
   setInterval(() => (showCursor.value = !showCursor.value), 500)
   terminalInput.value?.focus()
   cursorPos.value = input.value.length
+
+  recruiterContext.value = recruiterQuestions.map(q => ({
+    role: 'system',
+    text: `${q.question}\n${q.answer}`
+  }));
 })
 
 watch(input, (val) => {
@@ -117,18 +124,72 @@ const cursorOverlayStyle = computed(() => {
   };
 })
 
-function submit() {
+// Gemini chat integration
+const isLoading = ref(false)
+async function submit() {
   if (input.value.trim()) {
-    history.value.push(input.value.trim())
-    input.value = ''
-    cursorPos.value = 0 // Reset caret position on submit
-    // Scroll to bottom after user submits
-    setTimeout(() => {
-      const historyEl = document.getElementById('terminal-history');
-      if (historyEl) {
-        historyEl.scrollTop = historyEl.scrollHeight;
+    const userMessage = input.value.trim();
+    history.value.push({ text: '> ' + userMessage, role: 'user' });
+    input.value = '';
+    cursorPos.value = 0;
+    isLoading.value = true;
+    // Show '...' while waiting for response
+    history.value.push({ text: '...', role: 'system' });
+    try {
+      const res = await fetch('/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userMessage })
+      });
+      let answer = '';
+      if (res.body && res.body.getReader) {
+        // Stream response
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          answer += decoder.decode(value);
+        }
+      } else {
+        answer = await res.text();
       }
-    }, 0);
+      // Typewriter effect for system response
+      await typewriterSystemResponse(answer);
+    } catch (err) {
+      history.value[history.value.length - 1].text = '[error] Could not get a response.';
+    } finally {
+      isLoading.value = false;
+      // Only scroll for user input, not for system response
+      setTimeout(() => {
+        const historyEl = document.getElementById('terminal-history');
+        if (historyEl) {
+          historyEl.scrollTop = historyEl.scrollHeight;
+        }
+      }, 0);
+    }
+  }
+}
+
+// Typewriter effect for system (server) response
+async function typewriterSystemResponse(fullText) {
+  const idx = history.value.length - 1;
+  history.value[idx].text = '';
+  const historyEl = document.getElementById('terminal-history');
+  let prevScrollTop = historyEl ? historyEl.scrollTop : 0;
+  let prevScrollHeight = historyEl ? historyEl.scrollHeight : 0;
+  for (let i = 0; i < fullText.length; i++) {
+    history.value[idx].text = fullText.slice(0, i + 1);
+    await new Promise(r => setTimeout(r, 12));
+    if (historyEl) {
+      // Adjust scrollTop to preserve the visible area as the scroll bar grows
+      const newScrollHeight = historyEl.scrollHeight;
+      if (newScrollHeight > prevScrollHeight) {
+        historyEl.scrollTop = prevScrollTop + (newScrollHeight - prevScrollHeight);
+        prevScrollTop = historyEl.scrollTop;
+        prevScrollHeight = newScrollHeight;
+      }
+    }
   }
 }
 
@@ -194,6 +255,14 @@ function updateSelection(e) {
   max-width: 60%;
   word-break: break-word;
   text-align: left;
+  align-self: flex-start;
+}
+.system {
+  max-width: 60%;
+  word-break: break-word;
+  align-self: flex-end;
+  margin-left: auto;
+  color: #22ff22;
 }
 .history-lines {
   position: relative;
