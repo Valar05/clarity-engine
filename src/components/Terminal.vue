@@ -2,7 +2,7 @@
   <div class="w-full bg-black flex items-center justify-center">
     <!-- Terminal Shell -->
     <div id="terminal-image"
-      class="relative bg-no-repeat bg-cover bg-center w-[90vw] h-auto max-w-[1024px] aspect-[960/1920] md:aspect-[1024/768]"
+      class="relative bg-no-repeat bg-cover bg-center w-[100vw] h-auto max-w-[1080px] aspect-[1080/1800] md:aspect-[1080/768] mt-[-10%] md:mt-[-3%]"
       :style="{ backgroundImage: `url(${isTall ? terminalTallBg : terminalBg})` }"
     >
       <!-- Terminal Text Area -->
@@ -11,7 +11,7 @@
       >
         <!-- History -->
         <div id="terminal-history" class="overflow-y-auto mb-4 ml-6 break-words whitespace-pre-line relative pt-0 h-full flex flex-col"
-          :class="[isTall ? 'max-h-[80%] mr-[10%]' : 'max-h-[65%]']" style="background: transparent; min-height: 0;">
+          :class="[isTall ? 'max-h-[72%] mr-[10%]' : 'max-h-[70%]']" style="background: transparent; min-height: 0;">
           <div class="history-lines mt-auto relative z-30">
             <div v-for="(line, i) in history" :key="i" :class="['mb-1', line.role]">
               {{ line.text }}
@@ -60,7 +60,7 @@
 <script setup>
 import { ref, onMounted, watch, computed } from 'vue'
 import terminalBg from '@/assets/Terminal.png'
-import terminalTallBg from '@/assets/Terminal_tall.png';
+import terminalTallBg from '@/assets/Terminal_Tall.png';
 import recruiterQuestions from '@/../RecruiterQuestions.json';
 
 const input = ref('')
@@ -272,9 +272,9 @@ function updateSelection(e) {
 /* Gradient fade effect at the top of the history container */
 .fade-text-top {
   position: absolute;
-  top: 26%;
-  left: 10.5%;
-  width: 81%;
+  top: 21.3%;
+  left: 11%;
+  width: 79.5%;
   height: 3.5rem;
   pointer-events: none;
   /* z-index must be lower than the overlay image */
@@ -283,9 +283,10 @@ function updateSelection(e) {
 }
 @media (max-width: 767px) {
   .fade-text-top {
-    top: 11%;
-    left: 16.5%;
-    width: 69%;
+    top: 17%;
+    left: 18.5%;
+    width: 65%
+;
   }
 }
 </style>

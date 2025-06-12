@@ -1,5 +1,5 @@
 <template>
-  <div class="dark bg-black min-h-screen text-white font-sans border-8">
+  <div class="dark bg-black min-h-screen text-white font-sans">
     <HeaderSection />
     <Terminal />
   </div>
